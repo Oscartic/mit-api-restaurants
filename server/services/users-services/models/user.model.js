@@ -16,17 +16,20 @@ const UserSchema = new Schema(
             type: String,
             required: [true, 'name is required'],
             index: true,
+            trim: true,
         },
         nickname: {
             type: String,
             required: [true, 'nickname is required'],
             index: true,
+            trim: true,
         },
         email: {
             type: String,
             required: [true, 'email is required'],
             unique: [true, 'email must be unique'],
             index: true,
+            trim: true,
         },
         password: {
             type: String,

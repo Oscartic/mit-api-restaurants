@@ -7,14 +7,14 @@ module.exports = async function create ({
     password 
 }) {
     try {
+        const findUser = await User.findOne({ email });
+        if(findUser) return {error: 'Email already exists'}; 
         const user = await User.create({
             name,
             nickname,
             email, 
             password 
         });
-
-        console.log(user);
         return { user };    
     } catch (error) {
         console.log('[create.action] >>> ', error);
