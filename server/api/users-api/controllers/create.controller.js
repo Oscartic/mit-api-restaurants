@@ -13,7 +13,7 @@ module.exports = async function create (req, res) {
         const response  = await UsersService.create({
             name, nickname, email, password,
         });
-        if(response.errors) return res.status(400).send({ response });
+        if(response.error) return res.status(400).send({ response });
         return res.status(201).send({ response });
         
     } catch (error) {
