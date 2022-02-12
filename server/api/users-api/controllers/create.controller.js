@@ -10,13 +10,14 @@ module.exports = async function create (req, res) {
     try {
         const bodyValues = await schema.validateAsync(body);
         const { name, nickname, email, password } = bodyValues;
-        const { user } = await UsersService.create({
+        const response  = await UsersService.create({
             name, nickname, email, password,
         });
-        return res.send(user);
+        if(response.errors) return res.status(400).send({ response });
+        return res.status(201).send({ response });
         
     } catch (error) {
         console.log('[create.controller] >>> ', error);
-        return res.send(error);
+        return res.status(500).send({error: 'Internal Server Error'});
     }
 }
