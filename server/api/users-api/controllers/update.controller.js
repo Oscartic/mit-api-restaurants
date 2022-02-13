@@ -17,7 +17,7 @@ module.exports = async function update (req, res) {
         });
         console.log(response)
         if(response.error) return res.status(400).send({ response });
-        return res.status(201).send({ response });
+        return res.status(204).send({ response });
         
     } catch (error) {
         console.log('[update.controller] >>> ', error);
