@@ -15,7 +15,6 @@ module.exports = async function update (req, res) {
         const response  = await UsersService.update({
             userId, name, nickname, password,
         });
-        console.log(response)
         if(response.error) return res.status(400).send({ response });
         return res.status(204).send({ response });
         
