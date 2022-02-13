@@ -1,7 +1,9 @@
 const create = require('./users-actions/create.action');
 const get = require('./users-actions/get.action');
+const update = require('./users-actions/update.action');
 
 module.exports = {
     create,
-    get
+    get,
+    update,
 };
