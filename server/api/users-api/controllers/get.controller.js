@@ -1,9 +1,9 @@
 const UsersService = require('../../../services/users-services');
 
 module.exports = async function get (req, res) {
- 
+
     const { id: userId } = req.params;
-    console.log(userId)
+
     try {
         const response = await UsersService.get({ userId });
 
