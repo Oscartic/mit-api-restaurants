@@ -8,4 +8,6 @@ module.exports = {
         .max(350),
 
     imageUrl: Joi.string(),
+
+    dishes: Joi.array(),
 };

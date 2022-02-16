@@ -11,4 +11,6 @@ module.exports = {
 
     imageUrl: Joi.string()
         .required(),
+    
+    dishes: Joi.array(),
 };
