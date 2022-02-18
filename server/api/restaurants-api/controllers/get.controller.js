@@ -2,10 +2,10 @@ const RestaurantsService = require('../../../services/restaurants-services');
 
 module.exports = async function get (req, res) {
 
-    const { id: restaurantId } = req.params;
+    const { id: id } = req.params;
 
     try {
-        const response = await RestaurantsService.get({ restaurantId });
+        const response = await RestaurantsService.get({ id });
 
         if(response.error) return res.status(400).send(response);
         return res.status(200).send(response);

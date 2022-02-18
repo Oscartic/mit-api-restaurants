@@ -6,12 +6,11 @@ const schema = Joi.object().keys(CreateRestaurantValidationSchema);
 
 module.exports = async function create (req, res) {
     const { body } = req;
-    
     try {
         const bodyValues = await schema.validateAsync(body);
-        const { name, description, imageUrl} = bodyValues;
+        let { name, description, imageUrl, dishes} = bodyValues;
         const response  = await RestaurantsService.create({
-            name, description, imageUrl
+            name, description, imageUrl, dishes
         });
         if(response.error) return res.status(400).send({ response });
         return res.status(201).send({ response });
