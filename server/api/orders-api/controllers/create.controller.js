@@ -1,8 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const { v4: uuidv4 } = require('uuid');
-// const Joi = require('Joi');
-// const UsersService = require('../../../services/users-services');
-// const CreateUserValidationSchema = require('../schemas/create.schema');
+const OrdersService = require('../../../services/orders-services');
 
 module.exports = async function create (req, res) {
     const { itemsCart, token } = req.body;
@@ -14,10 +12,11 @@ module.exports = async function create (req, res) {
             email: token.email,
             source: token.id
         }); 
-        console.log('customer >>> ',customer);
+        console.log('[Api-Orders][create.controller] >>> customer >>> ',customer.id);
         const total = Number(amountPayable).toFixed(2) * 100;
-        console.log('total >>> ', total);
-        const charges = await stripe.charges.create({
+
+        const charges = await stripe.charges.create(
+            {
                 amount: total,
                 currency: "usd",
                 customer: customer.id,
@@ -31,16 +30,37 @@ module.exports = async function create (req, res) {
                 }
             }, {
                 idempotencyKey: idempotencyKey
-            });
-            console.log('Charges >>> ', charges);
-            if (charges && charges.status === 200){
-                // TODO guardar en DB 
             }
-        return res.status(200).json(charges);
+        );
+        console.log('[Api-Orders][create.controller] >>> Charges >>> ', charges.id);
+        if (charges) {
+            const {
+                id: stripeIdCharge, 
+                amount, 
+                currency, 
+                status, 
+                receipt_email, 
+                description, 
+                source
+            } = charges;
+
+            const response  = await OrdersService.create({
+                stripeIdCharge, 
+                amount, 
+                currency, 
+                status, 
+                receipt_email, 
+                description, 
+                source
+            });
+            return res.status(200).json(response);
+        };
         
     } catch (error) {
-        console.log('[create.controller] >>> ', error);
+        console.log('[Api-Orders][create.controller] >>> ', error);
         return res.status(500).send({error: 'Internal Server Error', details: error});
     };
 
 };
+
+
