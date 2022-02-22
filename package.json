@@ -4,6 +4,7 @@
   "description": "Api for MITRestaurants app, MERN certification final project.",
   "main": "server/app.js",
   "scripts": {
+    "prod": "node ./server/app.js",
     "local": "env-cmd -f ./env/local.env nodemon ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
