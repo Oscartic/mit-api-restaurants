@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+const Joi = require('joi');
 const UsersService = require('../../../services/users-services');
 const CreateUserValidationSchema = require('../schemas/update.schema');
 

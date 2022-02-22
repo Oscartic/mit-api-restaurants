@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+const Joi = require('joi');
 const RestaurantsService = require('../../../services/restaurants-services');
 const CreateRestaurantValidationSchema = require('../schemas/update.schema');
 
