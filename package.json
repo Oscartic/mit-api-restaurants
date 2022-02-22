@@ -2,7 +2,7 @@
   "name": "mit-api-restaurants",
   "version": "1.0.0",
   "description": "Api for MITRestaurants app, MERN certification final project.",
-  "main": "server/app.js",
+  "main": "./server/app.js",
   "scripts": {
     "local": "env-cmd -f ./env/local.env nodemon ./server/app.js",
     "start": "node ./server/app.js",
