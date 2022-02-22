@@ -1,10 +1,12 @@
 const apiUsers = require('./users-api/routes');
 const apiRestaurants = require('./restaurants-api/routes');
+const apiOrders = require('./orders-api/routes');
 
 module.exports.default = (app) => {
 
     app.use('/api/users', apiUsers);
     app.use('/api/restaurants', apiRestaurants);
+    app.use('/api/orders', apiOrders);
 
     app.use('/api/status', (req, res) => {
         res.status(200);
