@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const db = require('../config/mongodb');
 const cors = require('cors');
 
-const PORT = process.env.API_PORT || 5001;
+const PORT = process.env.PORT || 5001;
 
 db.connect();
 const app = express();
