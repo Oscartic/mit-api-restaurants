@@ -17,6 +17,8 @@ const csrfMiddleware = csrf({ cookie: true});
 
 const PORT = process.env.API_PORT || 3001;
 
+const PORT = process.env.PORT || 5001;
+
 db.connect();
 
 const app = express();
