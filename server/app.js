@@ -1,32 +1,24 @@
 const express = require('express');
 const routes = require('./api/routes');
 const cookieParser = require('cookie-parser');
-const csrf = require("csurf");
 const bodyParser = require('body-parser');
 const db = require('../config/mongodb');
 const cors = require('cors');
-const admin = require("firebase-admin");
-const adminFirebaseKeyObj = require('../config/serviceAccountKey');
-
-const serviceAccount = adminFirebaseKeyObj.adminFirebase;
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
-
-const csrfMiddleware = csrf({ cookie: true});
 
 const PORT = process.env.PORT || 5001;
 
-db.connect();
-
 const app = express();
+const corsOptions = {
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(csrfMiddleware);
-app.use(cors());
 
 routes.default(app);
+db.connect();
 
 app.listen(PORT, () => {
     console.info('API run in port: ', PORT);
