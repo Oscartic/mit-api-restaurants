@@ -26,7 +26,6 @@
   "homepage": "https://github.com/Oscartic/mit-api-restaurants#readme",
   "dependencies": {
     "body-parse": "^0.1.0",
-    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "env-cmd": "^10.1.0",
