@@ -1,17 +1,14 @@
 const Joi = require('joi');
 const UsersService = require('../../../services/users-services');
-const CreateUserValidationSchema = require('../schemas/create.schema');
-
-const schema = Joi.object().keys(CreateUserValidationSchema);
-
+const admin = require('../../../../config/firebaseAdmin');
 module.exports = async function create (req, res) {
-    const { body } = req;
+    const { firebaseId } = req.params;
+    console.log(firebaseId);
     
     try {
-        const bodyValues = await schema.validateAsync(body);
-        const { name, nickname, email, password } = bodyValues;
+        const { uid: firebaseUid, displayName, email } = await admin.auth().getUser(firebaseId);
         const response  = await UsersService.create({
-            name, nickname, email, password,
+            firebaseUid, displayName, email,
         });
         if(response.error) return res.status(400).send({ response });
         return res.status(201).send({ response });

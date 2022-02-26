@@ -1,8 +1,4 @@
-const Joi = require('joi');
 const UsersService = require('../../../services/users-services');
-const CreateUserValidationSchema = require('../schemas/update.schema');
-
-const schema = Joi.object().keys(CreateUserValidationSchema);
 
 module.exports = async function update (req, res) {
     
@@ -10,10 +6,8 @@ module.exports = async function update (req, res) {
     const { body } = req;
     
     try {
-        const bodyValues = await schema.validateAsync(body);
-        const { name, nickname, password } = bodyValues;
         const response  = await UsersService.update({
-            userId, name, nickname, password,
+            userId, displayName, password,
         });
         if(response.error) return res.status(400).send({ response });
         return res.status(204).send({ response });
