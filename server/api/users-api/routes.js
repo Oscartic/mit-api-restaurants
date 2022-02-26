@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', list);
 router.get('/:id', get);
-router.post('/', create);
+router.post('/:firebaseId', create);
 router.put('/:id', update);
 router.delete('/:id', remove);
 
