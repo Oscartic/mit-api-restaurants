@@ -1,6 +1,5 @@
 const express = require('express');
 const routes = require('./api/routes');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const db = require('../config/mongodb');
 const cors = require('cors');
@@ -15,7 +14,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 routes.default(app);
 db.connect();
