@@ -1,8 +1,8 @@
 const User = require('../models/user.model');
 
 module.exports = async function create ({
-    name,
-    nickname,
+    firebaseUid,
+    displayName,
     email, 
     password 
 }) {
@@ -10,8 +10,8 @@ module.exports = async function create ({
         const findUser = await User.findOne({ email });
         if(findUser) return {error: 'Email already exists'}; 
         const user = await User.create({
-            name,
-            nickname,
+            firebaseUid,
+            displayName,
             email, 
             password 
         });

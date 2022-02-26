@@ -12,15 +12,15 @@ const UserSchema = new Schema(
             default: uuidv4,
             index: true,
         },
-        name: {
+        firebaseUid: {
             type: String,
-            required: [true, 'name is required'],
+            required: true,
+            unique: [true, 'firebaseUid must be unique'],
             index: true,
-            trim: true,
         },
-        nickname: {
+        displayName: {
             type: String,
-            required: [true, 'nickname is required'],
+            required: [true, 'displayName is required'],
             index: true,
             trim: true,
         },
@@ -33,7 +33,6 @@ const UserSchema = new Schema(
         },
         password: {
             type: String,
-            required: [true, 'password is required'],
         },
     },
     {
