@@ -3,18 +3,18 @@ const { v4: uuidv4 } = require('uuid');
 const OrdersService = require('../../../services/orders-services');
 
 module.exports = async function create (req, res) {
-    const { itemsCart, token } = req.body;
+    const { itemsCart, token, firebaseUid } = req.body;
     const amountPayable = itemsCart.map(e => Number(e.price).toFixed(2) * e.quantity).reduce((acc, cur) => Number(acc) + Number(cur), [0]);
     const idempotencyKey = uuidv4();
-    
     try {
         const customer = await stripe.customers.create({
             email: token.email,
-            source: token.id
-        }); 
-        console.log('[Api-Orders][create.controller] >>> customer >>> ',customer.id);
-        const total = Number(amountPayable).toFixed(2) * 100;
+            source: token.id,
+            description: firebaseUid
 
+        }); 
+        console.log('[Api-Orders][create.controller] >>> customer >>> ',customer.id, customer.description);
+        const total = Number(amountPayable * 100).toFixed(0);
         const charges = await stripe.charges.create(
             {
                 amount: total,
@@ -35,7 +35,7 @@ module.exports = async function create (req, res) {
         console.log('[Api-Orders][create.controller] >>> Charges >>> ', charges.id);
         if (charges) {
             const {
-                id: stripeIdCharge, 
+                id: stripeIdCharge,
                 amount, 
                 currency, 
                 status, 
@@ -43,9 +43,10 @@ module.exports = async function create (req, res) {
                 description, 
                 source
             } = charges;
-
+            const firebaseUid = customer.description;
             const response  = await OrdersService.create({
                 stripeIdCharge, 
+                firebaseUid,
                 amount, 
                 currency, 
                 status, 

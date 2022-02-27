@@ -12,6 +12,10 @@ const OrderSchema = new Schema(
             default: uuidv4,
             index: true,
         },
+        firebaseUid: {
+            type: String,
+            required: [true, 'firebaseUid is required'],
+        },
         stripeIdCharge: {
             type: String,
             required: [true, 'stripeIdCharge is required'],
