@@ -4,13 +4,11 @@ const get = require('./controllers/get.controller');
 const update = require('./controllers/update.controller');
 const remove = require('./controllers/remove.controller');
 const list = require('./controllers/list.controller');
-const info = require('./controllers/info.controller');
 
 const router = express.Router();
 
 router.get('/', list);
-router.get('/:id', get);
-router.get('/:firebaseId', info);
+router.get('/:firebaseUid', get);
 router.post('/:firebaseId', create);
 router.put('/:id', update);
 router.delete('/:id', remove);

@@ -2,6 +2,7 @@ const Order = require('../models/order.model');
 
 module.exports = async function create ({
     stripeIdCharge, 
+    firebaseUid,
     amount, 
     currency, 
     status, 
@@ -12,6 +13,7 @@ module.exports = async function create ({
     try {
         const order = await Order.create({
             stripeIdCharge, 
+            firebaseUid,
             amount, 
             currency, 
             status, 
