@@ -3,7 +3,6 @@ const UsersService = require('../../../services/users-services');
 const admin = require('../../../../config/firebaseAdmin');
 module.exports = async function create (req, res) {
     const { firebaseId } = req.params;
-    console.log(firebaseId);
     
     try {
         const { uid: firebaseUid, displayName, email } = await admin.auth().getUser(firebaseId);
